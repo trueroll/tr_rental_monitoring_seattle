@@ -1,0 +1,46 @@
+---
+title: "Seattle Rental Housing Study Project Draft"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    df_print: paged
+    theme: sandstone
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.width = 8, fig.height = 6)
+library(tidyverse)
+library(tidycensus)
+library(lubridate)
+library(sf)
+library(leaflet)
+
+ggplot2::theme_set(theme_bw())
+```
+
+```{r}
+landlords <- read_csv('../data/landlords.csv')
+listings <- read_csv('../data/rentals_listings.csv')
+trueroll <- read_csv('../data/trueroll_observation.csv')
+study <- read_csv('../data/rentals_seattle_study.csv')
+registrations <- read_csv('../data/rentals_registrations.csv')
+
+rrio_records <- readxl::read_excel('../data/RRIO Data sent to Tyler--6-1-2022/all RRIO Records.xlsx')
+
+parcels <- read_csv('../data/assessor/Parcel.zip')
+apartments <- read_csv('../data/assessor/Apartment Complex.zip')
+res_buildings <- read_csv('../data/assessor/Residential Building.zip')
+units <- read_csv('../data/assessor/Unit Breakdown.zip')
+```
+
+
+
+
+# Rental Trends and Ownership
+
+## Changes in composition by building type/class
+## Changes in rental property ownership by landlord type
+## Changes in rent by building type/class and landlord type

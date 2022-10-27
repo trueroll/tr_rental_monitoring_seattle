@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+*.zip
+*documentation/*.csv
+*.xlsx
+
+*creds.r
+
+r/r.Rproj
+r/.Rapp.history
+
+*output/model

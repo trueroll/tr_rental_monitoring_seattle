@@ -1,0 +1,15 @@
+"","Building size","Property type","Entrance","Exit","Stable","Exit to entrance ratio"
+"1","Single family","Single-family",1652,140,440024,0.0847457627118644
+"2","Single family","Residential condominium",0,0,9,NA
+"3","Single family","Commercial multi-unit",85,215,1605,2.52941176470588
+"4","2 - 4 units","Small multi-unit",45,220,48614,4.88888888888889
+"5","2 - 4 units","Residential condominium",53,0,2662,0
+"6","2 - 4 units","Commercial multi-unit",58,106,14044,1.82758620689655
+"7","5 - 19 units","Small multi-unit",21,14,936,0.666666666666667
+"8","5 - 19 units","Residential condominium",55,0,25097,0
+"9","5 - 19 units","Commercial multi-unit",179,217,88437,1.2122905027933
+"10","20 - 49 units","Residential condominium",283,0,29288,0
+"11","20 - 49 units","Commercial multi-unit",314,236,95893,0.751592356687898
+"12","50 + units","Small multi-unit",0,107,0,Inf
+"13","50 + units","Residential condominium",1272,0,77938,0
+"14","50 + units","Commercial multi-unit",530,1673,288776,3.15660377358491
