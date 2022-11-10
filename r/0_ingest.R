@@ -26,7 +26,7 @@ census <- read_ipums_micro(ddi)
 write_parquet(census, file.path(data_folder, "seattle_ipums.parquet"))
 
 # iPUMS for Washington, people who moved from Seattle
-ddi <- read_ipums_ddi(file.path(download_dir, "usa_00005.xml")
+ddi <- read_ipums_ddi(file.path(download_dir, "usa_00005.xml"))
 census <- read_ipums_micro(ddi) %>%
   dplyr::filter(MIGPUMA1 == 11600)
 write_parquet(census, file.path(data_folder, "seattle_outmovers.parquet"))
@@ -93,10 +93,10 @@ write_parquet(census_PUMS, file.path(data_folder, "PUMS.parquet"))
 
 #---- King building permits ----
 permits <- read.csv(here::here(
-  "seattle_rental_study", "data", "Residential_Building_Permits_Issued_and_Final.csv"))
+  "tr_rental_monitoring_seattle", "data", "Residential_Building_Permits_Issued_and_Final.csv"))
 
 recode <- read.csv(here::here(
-  "seattle_rental_study", "data", "permit_type_recode.csv"))
+  "tr_rental_monitoring_seattle", "data", "permit_type_recode.csv"))
 
 permits <- permits %>%
   inner_join(recode) %>%
@@ -130,7 +130,7 @@ permits <- permits %>%
                 `Year`)
 
 
-write_parquet(permits, here::here("seattle_rental_study", "data", "permits.parquet")) 
+write_parquet(permits, here::here("tr_rental_monitoring_seattle", "data", "permits.parquet")) 
 rm(permits, recode)
 
 #---- King County Taxroll----
@@ -199,7 +199,7 @@ rm(residential,parcels, condos)
 
 #----TR Properties----
 # The section that follows this one depends on outputs from this section
-properties_qry = "SELECT * FROM wa_seattle_rental_study.mv_parcel_sizes_and_qualities"
+properties_qry = "SELECT * FROM wa_tr_rental_monitoring_seattle.mv_parcel_sizes_and_qualities"
 properties <- dbGetQuery(con, properties_qry)
 
 # >>>>>>------- 
@@ -216,7 +216,7 @@ owners <- dbGetQuery(con, owners_query) %>%
   )
 
 # Also identify owner-occupied properties
-residency_qry = "SELECT * FROM wa_seattle_rental_study.mv_owner_occupied_parcels"
+residency_qry = "SELECT * FROM wa_tr_rental_monitoring_seattle.mv_owner_occupied_parcels"
 residency <- dbGetQuery(con, residency_qry) %>%
   dplyr::select(parcel_num_standardized) %>%
   dplyr::rename(parcel_num = parcel_num_standardized) %>%
@@ -360,7 +360,7 @@ rental_data <- rentals %>%
   dplyr::summarise(
       `Listing count` = sum(n_listings)
     , `Unit count` = n_distinct(listing_unit_level_id)
-    , `Annnual rental costs` = mean(list_rent)
+    , `Annual rental costs` = mean(list_rent)
     , `Square feet` = mean(sqft, na.rm = T)
   ) %>%
   dplyr::rename(
@@ -372,7 +372,7 @@ rental_data <- rentals %>%
     , `Census tract` = geo_id
   ) 
 
-write_parquet(rental_data, here::here("seattle_rental_study", "data", "rental_data.parquet"))
+write_parquet(rental_data, here::here("tr_rental_monitoring_seattle", "data", "rental_data.parquet"))
 
 #-----DD Coverage of rental data ----
 dd_coverage <- rentals %>%
@@ -387,7 +387,7 @@ dd_coverage <- rentals %>%
   ) %>%
   dplyr::filter(!is.na(PropType))
 
-write_csv(dd_coverage, here::here("seattle_rental_study", "outputs", 'T15.csv'))
+write_csv(dd_coverage, here::here("tr_rental_monitoring_seattle", "outputs", 'T15.csv'))
 
 # ----- DD Owner type counts ----
 rental_data %>%
@@ -412,8 +412,8 @@ others <- rental_data %>% dplyr::filter(`Owner type` == 'Other')
 
 
 #---- Rental registry----
-a <- read_parquet(here::here("seattle_rental_study", "data", "rental_data.parquet")) %>%
-  dplyr::filter(Year >= 2020) %>%
+a <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_data.parquet")) %>%
+  dplyr::filter(Year > 2020) %>%
   group_by(`Parcel number`) %>%
   summarise(
     `TrueRoll unit count` = sum(`Unit count`, na.rm = T)
@@ -421,7 +421,7 @@ a <- read_parquet(here::here("seattle_rental_study", "data", "rental_data.parque
 
 # Want to attempt to estimate compliance by joining rental listings into
 # Seattle's rental registry
-registry <- readxl::read_xlsx(here::here("seattle_rental_study", "data"
+registry <- readxl::read_xlsx(here::here("tr_rental_monitoring_seattle", "data"
                                          , "seattle_rental_registry.xlsx")) %>%
   dplyr::filter(RECORD_STATUS == "Active Registration") %>%
   dplyr::mutate(
@@ -433,7 +433,7 @@ registry <- readxl::read_xlsx(here::here("seattle_rental_study", "data"
   ) %>%
   full_join(a)
 
-write_parquet(registry, here::here("seattle_rental_study", "data", "rental_registry.parquet"))
+write_parquet(registry, here::here("tr_rental_monitoring_seattle", "data", "rental_registry.parquet"))
 rm(registry, a)
 
 
@@ -453,4 +453,4 @@ dbGetQuery(con, query7) %>%
       , TRUE ~ 'Other'
       )
     )%>%
-write_parquet(here::here("seattle_rental_study", "data", "ownership_records.parquet"))
+write_parquet(here::here("tr_rental_monitoring_seattle", "data", "ownership_records.parquet"))

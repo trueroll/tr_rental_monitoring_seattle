@@ -1,6 +1,6 @@
 ---
-title: "2022 Monitoring Report: Composition of Rental Housing and Ownership in Seattle, WA"
-subtitle: 'Prepared by the City of Seattle’s Office of Housing and Office of Planning & Community Development'
+title: "Composition of Rental Housing and Ownership in Seattle, WA"
+subtitle: 'Prepared by TrueRoll'
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -29,9 +29,10 @@ library(kableExtra)
 
 This report was prepared by [TrueRoll](https://www.trueroll.io/), a technology company that provides solutions to County Assessors and local governments across the US. The report was compiled during the third quarter of 2022. Using a variety of data, we find:  
 
-- The number of housing units in Seattle has increased dramatically to meet increasing demand from a growing population. Most new units are created in large buildings with 50 or more units. There has been a small net increase in units in all building sizes.
+- Since 2010, the number of housing units in Seattle has increased dramatically in response to increasing demand from a growing population. Most new units are created in large buildings with 50 or more units. There has been a small net increase in units in all building sizes.
 - The number of housing units owned by mom-and-pop landlords decreased slightly (3.5%) from 2015 to 2021. Units owned by small property managers account for the largest portion of growth in total housing units. 
 - Rental listing data does not provide strong evidence that 'mom-and-pop' landlords charge lower rents on average. Nor does it provide strong evidence that rents differ significantly by building size, except insomuch as buildings of different sizes are located in different parts of Seattle, or differ in terms of age or unit sizes. No does it provide strong evidence that property owners that live outside of the state of Washington charge higher rents than property owners located nearer to Seattle.
+- Rental listing data likely suffers from a number of flaws that may mask small patterns in the market. For example, we observed far fewer online rental listings associated with small, multi-family properties than with large multi-family properties. This can introduce selection bias into the rental sample, which may make smaller properties appear more similar to larger ones in terms of pricing. 
 
 We provide recommendations regarding the future collection and maintenance of real property data.
 
@@ -41,11 +42,13 @@ Reproduction code and data for this project can be found on [GitHub.](https://gi
 
 # Broad trends in Seattle housing costs
 
-The sections below outlines broad trends in Seattle population and housing. For this analysis we used the [US Census Bureau's Individual Public Use Micro Data Sets (IPUMS)](https://usa.ipums.org/usa/). IPUMS are observations of individual Census respondents over time. We aggregated data from the American Community Survey's 5-year estimates from 2005 to 2020, selecting important variables that shed light on Seattle's housing market. 
+The sections below outlines broad trends in Seattle population and housing. For this analysis we used the [US Census Bureau's Integrated Public Use Microdata Series (IPUMS)](https://usa.ipums.org/usa/about.shtml). IPUMS are observations of individual respondents over time. We aggregated data from the American Community Survey 5-year estimates from 2005 to 2020, selecting important variables that shed light on Seattle's housing market. 
 
-## Population pressure may be increasing rents
+## Rents are increasing with increased population pressure and rising incomes
 
-The population of Seattle, WA has grown rapidly over the past decade, from 664,000 in 2010 to 743,000 in 2020. Rents have followed, with median rent 25% higher in 2020 than in 2010. Households' incomes have also increased - median income rose from \$64,000 to \$90,000 over the decade. Increases in population and rents raise legitimate concern over housing affordability in Seattle. The graph below shows these changes in Seattle. Values are indexed to show the relationship in trends rather than levels. 
+The population of Seattle, WA has grown rapidly over the past decade, from 664,000 in 2010 to 743,000 in 2020. Rents have followed, with median [contract rent](https://usa.ipums.org/usa-action/variables/RENT#description_section) rent 25% higher in 2020 than in 2010. 
+
+Households incomes have also increased - median income rose from \$64,000 to \$90,000 over the decade. Increases in population and rents raise legitimate concern over housing affordability in Seattle. The graph below shows these changes in Seattle. Values are indexed to show the relationship in trends rather than levels. 
 
 ```{r fig1, out.width = '100%'}
 load('G1.gph'); G1
@@ -53,7 +56,9 @@ load('G1.gph'); G1
 
 ## Rents track incomes more closely than owner costs
 
-Due to differences in the markets for properties-to-own and properties-to-rent, rental costs tend to track the incomes of renters more closely than owner costs do the incomes of owners. This is one reason policymakers may be more concerned about apartment rents than owner costs. However, it is important to remember that properties-to-own and properties-to-rent are substitutes in consumption. Increasing rents will also increase the purchase price of homes, and high purchase prices for properties-to-own will put upward pressure on rents. Increasing the production of properties-to-own, on the other hand, will put downward pressure on the cost of properties-to-rent.
+Due to differences in the markets for properties-to-own-and-occupy and properties-to-rent-and-occupy, rental costs tend to track the incomes of renters more closely than owner costs do the incomes of owners. For example, rents may increase annually, at the end of each rental period, whereas owner costs for properties with fixed-rate mortgages typically only increase when the property transacts, or when the property owner refinances. Occupants of property-to-own, then, may be less exposed to annual changes in the housing market, and this may be one reason policymakers may be more concerned about apartment rents than owner costs. 
+
+Nevertheless, it is important to remember that properties-to-own and properties-to-rent are substitutes in consumption. Increasing rents will also increase the purchase price of homes, and high purchase prices for properties-to-own-and-occupy will put upward pressure on rents. To see why, consider a mid-career migrant to Seattle. That person will consider both renting and purchasing property. They will weight many different factors, among which are the relative costs of owning a property versus renting one. If rents are significantly lower than ownership costs, they may choose to rent rather than own. In the aggregate, higher ownership costs will increase the rents landlords may charge tenants, as newcomers bid up rent prices in desirable areas. In short, the single-family and residential condominium housing markets have a strong impact on the rental housing market, and vice versa. 
 
 ```{r fig2, out.width = '100%'}
 load('G2.gph'); G2
@@ -61,11 +66,11 @@ load('G2.gph'); G2
 
 # Trends in Seattle housing composition
 
-This sections describes the current state and changes over time in the composition of rental housing stock in Seattle. Following the categorization schema used by the US Census Bureau, we focus on the gain of units in five different size classes, from single-family to large buildings with more than 50 units. For this analysis, we rely on a number of data sets. Each sub-section highlights results from a specific data set. Overall, we see little evidence that Seattle is losing units within any category of building size. Most new units are being built in large buildings. We see the most demolition activity within single-family homes, with the number of construction permits is larger than the number of demolition permits.
+This section describes the current state of and changes over time in the composition of the rental housing stock in Seattle. Following the categorization schema used by the US Census Bureau, we focus on the number of units in five different building size classes, from single-family to large buildings with more than 50 units. For this analysis, we rely on several data sets. Each sub-section highlights results from a specific data set. Overall, we see little evidence that Seattle is losing units within any category of building size. Most new units are being built in large buildings. The share of housing units in smaller buildings declined over time, since the number of units in smaller buildings remained constant as the total number of units increased.
 
-## Census data
+## American Community Sruvey data
 
-IPUMS data captures [the number of units in respondents' structure](https://usa.ipums.org/usa-action/variables/UNITSSTR#description_section). Using this field, we can count the number of households over time by building size. The graph below shows that nearly all of the net the increases in housing in Seattle is occurring in large buildings with 50 or more units. Mathematically, this will result in a smaller share of units in smaller buildings overall. The number of households living in smaller apartment buildings and single family homes has stayed relatively stable since 2005.   
+IPUMS ACS data captures [the number of units in respondents' structure](https://usa.ipums.org/usa-action/variables/UNITSSTR#description_section). Note that this field captures occupied and vacant units, and attached 1-unit structures like town homes are counted as 1-unit structures. Using this field, we can count the number of households over time by building size. The graph below shows that nearly all of the net the increases in housing in Seattle is occurring in large buildings with 50 or more units. Mathematically, this will result in a smaller share of units in smaller buildings overall. The number of households living in smaller apartment buildings and single-family homes has stayed relatively stable since 2005.   
 
 ```{r fig3, out.width = '100%'}
 load('G3.gph'); G3
@@ -75,15 +80,15 @@ IPUMS data only captures net households over time for the entire City of Seattle
 
 ## Seattle construction permit data
 
-The City of Seattle's Office of Planning and Community Development tracks and reports building permit data [in a well-built online dashboard](https://experience.arcgis.com/experience/53932efb64da40f6914c37e086b7dcbb). Since building permits are an integral part of multiple, highly visible administrative processes, we believe the permit data is reliable and mostly accurate. However, since building permits are not designed to track housing stock over time, they do not capture all the information one might want for the purpose of this analysis. For example, the Office of Planning and Community Development has invested significant time curating permit data, joining it against Assessor parcel layers to bring in additional information about the property being modified. In the data, however, they do not capture a full picture of the structures being modified, or the structure that eventually was constructed. This is not an oversight - such data is outside of the purview of that office, and would be unnecessary for their purposes. But it does make the data much less useful for our particular use case. 
+The City of Seattle's Office of Planning and Community Development (OPCD) tracks and reports building permit data [in a well-built online dashboard](https://experience.arcgis.com/experience/53932efb64da40f6914c37e086b7dcbb). Since building permits are an integral part of multiple highly visible administrative processes, we believe the permit data is reliable and mostly accurate. However, since building permits are not designed to track housing stock over time, they do not capture all the information one might want for the purpose of this analysis.
 
-The graph below shows net changes in units categorized by building size. This data is very consistent with the census data. 
+The graph below shows net changes in units categorized by building size. The trends shown are very consistent with those in the ACS data shown in the prior section. 
 
 ```{r fig4.1, out.width = '100%'}
 load('G4.1.gph'); G4.1
 ```
 
-Seattle's permit data also allows us to track gross additions and demolitions separately. The graph below shows these figures over the entire sixteen year period, grouped by building size. There have been very few permits for demolitions of multi-unit buildings in Seattle. Tabular data can be found on GitHub. 
+Seattle's permit data also allows us to track gross additions and demolitions separately. The graph below shows these figures over the entire sixteen-year period, grouped by building size. Very few permits for demolitions of multi-unit buildings in Seattle (so few that they are not visible with the scale of the y axis on the chart below). Tabular data can be found on GitHub. 
 
 ```{r fig4.2, out.width = '100%'}
 load('G4.2.gph'); G4.2
@@ -93,29 +98,31 @@ load('G4.2.gph'); G4.2
 
 The King County tax roll might seem to be a data set that could inform us about changes in Seattle real estate. The tax roll records individual tax parcels, the physical attributes of the buildings they contain, and their user categorization. One might think that comparing tax rolls across years should give a reasonably clear picture of the changes in the housing stock in Seattle. One who thought so would be wrong.
 
-Unfortunately, tax roll data is not a particularly helpful resource to investigate changes in housing composition over time in Seattle. This is so for two reasons. First, the data is very difficult to access. The King County Assessor's Office (KCAO) publishes the tax roll for the current year in various files [on their website](https://info.kingcounty.gov/assessor/datadownload/default.aspx). Every year, the KCAO removes the previous years' files and replace them with the current years' files. These historical files become unavailable to the public; the KACO denied our open records request for previous years' files.
+Unfortunately, tax roll data is not a particularly helpful resource to investigate changes in housing composition over time in Seattle. This is so for two reasons. First, the data is very difficult to access. The King County Assessor's Office (KCAO) publishes the tax roll for the current year in various files [on their website](https://info.kingcounty.gov/assessor/datadownload/default.aspx). Every year, the KCAO removes the previous years' files and replaces them with the current years' files. These historical files become unavailable to the public; the KCAO denied our open records request for previous years' files.
 
-Assessment data may be purchased through third-party vendors for most jurisdictions in the US. We purchased historical data for Seattle for years 2017 to 2021 from a major vendor. This data, however, did not contain reliable parcel classifiers and residential unit counts. This is likely due to the vendor's process of translating the KCAO's data into a general schema that can be applied nationwide. Our analysis of this third-party data yielded nonsensical results.
+Assessment data may be purchased through third-party vendors for most jurisdictions in the US. We purchased historical data for Seattle for years 2017 to 2021 from a major vendor. This data, however, did not contain reliable parcel classifiers and residential unit counts. This is likely due to the vendor's process of translating the KCAO's data into a general schema that can be applied nationwide. Our analysis of this third-party data found that it was not useful for the purposes of this report.
 
-As a general practice, the City of Seattle's Office of Planning and Community Development downloads and stores the KCAO's parcel data before it is replaced each year. They transform that data for their purposes and store it. The shared that data with us. Unfortunately, due to the way in which the data was transformed, it also yielded nonsensical results when we attempted to analyze it for this section of the report. 
+As a general practice, the OPCD downloads and stores the KCAO's parcel data before it is replaced each year. They transform that data for their purposes and store it. They shared that data with us. Unfortunately, due to the way in which the data was transformed, it was not useful for this portion of the analysis.
 
 In sum, this analysis was hampered by the lack of direct access to the KCAO's current and historic data files. For this reason, we recommend the KCAO pursue a higher level of data transparency. 
 
-Other than the difficult of accessing the KCAO's data, the KCAO's data model also makes it difficult to use for this type of analysis. A data model is simply the manner in which data is organised in a database. Data models critically impact how data may be easily used. In most Assessment offices, real estate *parcels* form the basis of data models. It is important to understand that a parcel does *not* represent a building, a plot of land, or any other real estate asset. Parcels are units of account that designate property tax liability. A parcel may designate any part of one or more real property assets, including land, buildings, air rights, units within buildings, parking spots, or leaseholds. In short, using parcels to make inferences about buildings is fraught with risk of error. Parcels are not a good unit of observation for buildings and dwelling units.
+Other than the difficulty of accessing the KCAO's data, the KCAO's data model also makes it difficult to use for this type of analysis. A data model is simply the way the data is organized in a database. Data models critically impact how data may be easily used. In most Assessment offices, real estate *parcels* form the basis of data models. It is important to understand that a parcel does *not* represent a building, a plot of land, or any other real estate asset. Parcels are units of account that designate property tax liability. A parcel may designate any part of one or more real property assets, including land, buildings, air rights, units within buildings, parking spots, or leaseholds. In short, using parcels to make inferences about buildings is fraught with risk of error. Parcels are not a good unit of observation for buildings and dwelling units.
 
 # Trends in Seattle property ownership
 
-This section describes the current state and changes over time in the ownership of rental housing. As part of normal business operations, TrueRoll identifies and stores parcel ownership records. Based on owners names, owners are categorized as companies or individuals. Owners' are grouped by their mailing address such that multiple people or companies with a common mailing address are treated as a single ownership entity. Doing this allows us to infer common ownership across different LLCs. For example, one property owner may have multiple LLCs, one for each of their properties. But since, for example, the owners of `123 Main St.` and `456 This Wy.` both share a common mailing address, they are treated as a single ownership entity.  
+This section describes the current state and changes over time in the ownership of rental housing. As part of normal business operations, TrueRoll identifies and stores parcel ownership records. Based on owners' names, owners are categorized as companies or individuals. Owners are grouped by their mailing address such that multiple people or companies with a common mailing address are treated as a single ownership entity. Doing this allows us to infer common ownership across different LLCs. For example, one property owner may have multiple LLCs, one for each of their properties. But since, for example, the owners of `123 Main St.` and `456 This Wy.` both share a common mailing address, they are treated as a single ownership entity. Owners are categorized as companies based on whether owner names contained company identifiers, "LLC" for example. 
 
-As mentioned above, the City of Seattle's Office of Planning and Community Development shared historical parcel data with TrueRoll for this study. We joined TrueRoll ownership records to the tax roll for each year. This allowed us to track owners and their portfolios over time. It also allowed us to characterize owners based on the number of parcels, buildings, and units they own. 
+As mentioned above, OPCD shared historical parcel data with TrueRoll for this study. We joined TrueRoll ownership records to the tax roll for each year. This allowed us to track owners and their portfolios over time. It also allowed us to characterize owners based on the number of parcels, buildings, and units they own. 
 
 Part of the scope of this study involved defining "small landlord". The table below shows the categorization schema we used to define different types of property owners. This categorization schema is informed by the Urban Institute's work over the past few years on "mom-and-pop" landlords in Minneapolis, MN, and other cities. See the links at the end of this document for references. While we cannot follow their definition exactly due to differences in the data that is available to us, we can follow it in general. 
 
-In the table below, owners must meet all of the criteria in the first two categories to be categorized as either a "Mom-and-pop" or "Small property manager" owner. The buildings field was not always populated because of the way the King County Assessor tracks buildings data. Owners with null building counts that met the other criteria for "Mom-and-pop" and "Small" landlords were included in those categories. Owners meeting any of the criteria in the next two are categorized as one of "Medium" or "Large" property managers. Owners that meet criteria in both the "Medium" and "Large" property manager categories are categorized as "Large property managers." Finally, we excluded the owners of condominiums from this part of our analysis. 
+In the table below, owners must meet all of the criteria in the first two categories to be categorized as either a "Mom-and-pop" or "Small property manager" owner. The buildings field was not always populated because of the way the King County Assessor tracks buildings data. Owners with null building counts that met the other criteria for "Mom-and-pop" and "Small" landlords were included in those categories. Owners meeting any of the criteria in the next two rows are categorized as one of "Midsized" or "Large" property manager categories. Owners that meet criteria in both the "Midsized" and "Large" property manager categories are categorized as "Large property managers." For example, properties owners with 20 parcels and 51 units, and 22 parcels and 49 units are both classified as large property managers. 
+
+Finally, we excluded the owners of condominiums from this part of our analysis. We did this for two reasons. First, the historical parcel data we were using from OPCD made it difficult to distinguish individual condominium units from condominium buildings, and classify units into the schema below. Second, a condominium unit owner is qualitatively different from the owner of a single-family parcel or a multi-family apartment. Including condominium owners in the sample added unnecessary complexity to the analysis, which is focused on the owners of single- and multi-family buildings.
 
 ```{r table5.1, results = 'asis'}
 data.frame(
-  `Owner type` = c("Mom-and-pop", "Small property manager", "Medium property manager ", "Large property manager")
+  `Owner type` = c("Mom-and-pop", "Small property manager", "Midsized property manager ", "Large property manager")
   , `Parcels owned` = c("<=3", "<=3", "4 <= n <= 20", "> 20")
   , `Buildings owned` = c("<=6 or null", "<=6 or null", ">6", "> 6")
   , `Units owned` = c("<=10", "<=10", "11 <- n <= 50", "> 50")
@@ -130,7 +137,7 @@ data.frame(
 ```
 
 
-The table below shows owner and unit counts for 2021 that use this categorization. The total number of units in our ownership data in 2020 was 190,393. According the IPUMS, the number of renting households was 186,406. The close agreement in unit counts gives us some confidence that our ownership data is reasonably complete.
+The table below shows owner and unit counts for 2021 that use this categorization. The total number of units in our ownership data in 2020 was 190,393. According to the IPUMS ACS data, the number of renting households was 186,406. The close agreement in unit counts gives us some confidence that our ownership data is reasonably complete.
 
 ```{r table5.2, results = 'asis'}
 read.csv('T5.csv') %>%
@@ -148,7 +155,7 @@ read.csv('T5.csv') %>%
 
 ## Changes in unit and owner counts by owner type over time
 
-The graph below shows unit and owner counts by owner type. Graph 5.1 shows that unit counts have increased between 20% and 50% for all ownership types except mom-an-pop owners. That group declined about 3.5% over the period. Graph 5.2 shows that the "Small property manager" category has seen the largest growth in membership over the period. Table 5.2 above shows that that group grew from 1,360 members to nearly 2,035 from 2015 to 2021. Meanwhile, the number of Mom-and-pop owners declined slightly from 24,768 in 2015 to 24,618 in 2021. Overall, there does not appear to be evidence that the number of Mom-and-pop landlords is declining sharply in Seattle. We have no way to estimate the statistical precision of our owner counts, but it is entirely possible that the 3.5% decline in the number of Mom-and-pop owners is due to random noise in our data.
+The graph below shows unit and owner counts by owner type. Graph 5.1 shows that unit counts have increased between 20% and 50% for all ownership types except mom-and-pop owners from 2015 to 2021. That group declined about 3.5% over the period. Graph 5.2 shows that the "Small property manager" category has seen the largest growth in membership over the period. Table 5.2 above shows that that group grew from 1,360 members to nearly 2,035 from 2015 to 2021. Meanwhile, the number of Mom-and-pop owners declined slightly from 24,768 in 2015 to 24,618 in 2021. Overall, there does not appear to be evidence that the number of Mom-and-pop landlords is declining sharply in Seattle. We cannot estimate the statistical precision of our owner counts, but it is entirely possible that the 3.5% decline in the number of Mom-and-pop owners is due to random noise in our data.
 
 ```{r fig5, out.width = '100%'}
 load('G5.1.gph');load('G5.2.gph'); G5.1; G5.2
@@ -158,9 +165,9 @@ load('G5.1.gph');load('G5.2.gph'); G5.1; G5.2
 
 This section describes the current rents charged in different types of rental properties. We used TrueRoll's rental data for this section of the analysis. As part of normal business operations, TrueRoll maintains the following data: rental listings posted on public websites, property records from the Assessors' office, and ownership records for each parcel. Combining this data allows TrueRoll to categorize parcels and rental listings based on owner and property characteristics. TrueRoll observed 834,672 rental listings from 2010 to 2022. TrueRoll began actively monitoring Seattle rental sites in late 2019, so most rental data comes from after that time. Removing listings pre-2019 leaves us with 801,457 listings. 
 
-There is not a 1:1 relationship between apartment listings and apartments. We believe some apartment owners create one listing per unit. Some create multiple listings per unit over time, since re-posting can increase a listing's visibility. Some apartment owners may create one listing for many units. For example, a large building may create one listing for each unit type by beds and baths. Small apartment owners may be less likely to post rental listings on public websites than others, preferring physical advertising and word of mouth.
+There is not a one-to-one relationship between apartment listings and vacant apartment units. We believe some apartment owners create one listing per unit. Some create multiple listings per unit over time since re-posting can increase a listing's visibility. Some apartment owners may create one listing for many units. For example, a large building may create one listing for each unit type by beds and baths. Small apartment owners may be less likely to post rental listings on public websites than others, preferring physical advertising and word of mouth.
 
-We did not want some properties in our sample to be over- or under- represented simply due to differences in listing strategies. However, we had limited time to devise a reasonable way to address potential bias in our rental sample. In constructing the final rental data sample, we aggregated listings by apartment types (beds & baths) for each parcel, in each year.These aggregations results in 32,051 records, with each record representing the average rental price for an x bed, y bath apartment at a given parcel in a given year. The table below shows a stylized data model.
+We did not want some properties in our sample to be over- or under- represented simply due to differences in listing strategies. However, we had limited time to devise a reasonable way to address potential bias in our rental sample. In constructing the final rental data sample, we aggregated listings by apartment types (beds & baths) for each parcel, in each year. These aggregations result in 32,051 records, with each record representing the average rental price for an x bed, y bath apartment at a given parcel in a given year. The table below shows a stylized data model.
 
 ```{r table6, results = 'asis'}
 data.frame(
@@ -177,7 +184,7 @@ data.frame(
 
 ```
 
-In the stylized example, parcel A has three unit types: 1,2, & 3 bedroom apartments. We observed 200 listings of 20 one bedroom apartment units in parcel A. There was an average bathroom count of 1.75 for these 1 bedroom apartments. Our final rental sample includes 31,968 observations of units with listings, of which 11,501 units have complete information about the unit and the building that contains the unit.
+In the stylized example, parcel A has three unit types: 1,2, & 3 bedroom apartments. We observed 200 listings of 20 one-bedroom apartment units in parcel A. The average bathroom count was 1.75 for these one-bedroom apartments. Our final rental sample includes 31,968 observations of units with listings, of which 11,501 units have complete information about the unit and the building that contains the unit.
 
 The rental data has good coverage overall [(See table 15)](https://github.com/trueroll/seattle_rental_study/tree/main/outputs/T15.csv), but the coverage rate is much lower for smaller apartment buildings. This is a strong indicator of *selection bias*; some mom-and-pop property owners are listing vacant units on the websites TrueRoll monitors, while others are not. If these two groups charge equivalent rents, this isn't a barrier to the analysis. However, if rents are correlated with the decision to list an apartment online, we have a selection bias issue. For example, suppose that owners of apartments that charge lower rents are much less likely to list vacant units online, instead preferring physical signage and network referrals. In such a case, the average observed list rent online would be inflated. This may be the case with the rental sample we use in this section.
 
@@ -189,17 +196,23 @@ While single-family homes command a rent premium on average, rents do not vary m
 load('G7.gph'); G7
 ```
 
+The graph below shows median annual rents by building size and bedroom count. While two building size categories - single-family and 50+ unit buildings - command higher rents, the other building size classes do not appear to differ in terms of rent across bedroom counts 
+
+```{r fig8}
+load('G8.gph'); G8
+```
+
 ### Linear regression
 
-Multiple factors impact apartment rents, including the attributes of the units, the buildings that contain them, and the neighborhoods in which those buildings are located. It may also be the case that attributes of the owners of the properties may also impact rents in those buildings.  Owners who live in one of the units in their building may be more likely to exchange lower rents for non-financial concessions, like lower levels of unit or building maintenance. Owners that have no personal interaction with their tenants may include risk premiums in their rents, while owners that interact with their tenants may not need to do so. Owners with small portfolios may be concerned about damaging their personal and professional reputations caused by increasing rent or evicting tenants. 
+Multiple factors impact apartment rents, including the attributes of the units, the buildings that contain them, and the neighborhoods in which those buildings are located. Property owner attributes may also impact rents in those buildings.  Owners who live in one of the units in their building may be more likely to exchange lower rents for non-financial concessions, like lower levels of unit or building maintenance. Owners that have no personal interaction with their tenants may include risk premiums in their rents, while owners that interact with their tenants may not need to do so. Owners with small portfolios may be concerned about damage to their personal and professional reputations that could be caused by increasing rent or evicting tenants. 
 
-We test ech hypothesis using [linear regression](https://en.wikipedia.org/wiki/Ordinary_least_squares). The table below shows the results of a regression of annual rental cost on building size. A linear regression is a way to calculate both unconditional and conditional averages. In the table below, columns (1) and (2) show unconditional average annual rents by building size. Unconditional averages, or 'simple' averages, can just as easily be displayed in a table. The advantage of using a regression to calculate averages is that we also see each average's [95% confidence interval](https://en.wikipedia.org/wiki/Confidence_interval) in parentheses. 
+We test each hypothesis using [linear regression](https://en.wikipedia.org/wiki/Ordinary_least_squares). The table below shows the results of a regression of annual rental cost on building size. A linear regression is a way to calculate both unconditional and conditional averages. In the table below, columns (1) and (2) show unconditional average annual rents by building size. Unconditional averages, or 'simple' averages, can just as easily be displayed in a table. The advantage of using a regression to calculate averages is that we also see each average's [95% confidence interval](https://en.wikipedia.org/wiki/Confidence_interval) in parentheses. 
 
-The confidence interval helps us see whether averages are statistically different from each other. For example, in (2) in the table below, Single family properties rent for about \$50,250 per year, on average, while units in small apartment buildings (2 - 4 units) rent for only \$23,534 on average. We can say that the difference in these averages is highly statistically significant because each estimate is outside the others' confidence interval. Moreover, the difference in the relative size of the intervals for the average for Single family and small apartment buildings tells us that there is much more variance in rents for Single family properties than there is in small multi family properties.
+The confidence interval helps us see whether averages are statistically different from each other. For example, in (2) in the table below, single family properties rent for about \$50,250 per year, on average, while units in small apartment buildings (2-4 units) rent for only \$23,534 on average. We can say that the difference in these averages is highly statistically significant because each estimate is outside the others' confidence interval. Moreover, the difference in the relative size of the intervals for the average for Single family and small apartment buildings tells us that there is much more variance in rents for Single family properties than there is in small multi-family properties.
 
-Regressions also can be used to calculate *conditional* averages. As we noted above, many factors impact rents. Including additional "covariates" in a regression helps us see how these additional variables may impact the relationship between annual rents and the variables we are interested in studying. In (3) below, we show average rents by building size *conditional* on the year the apartment was listed, bedroom and bathroom counts, the census tract that contains the building, and the building's age. Observe that the standard errors on the conditional averages are much larger than on the unconditional averages. They are no longer statistically different from each other. This shows us that the differences in average rents across building sizes are due mostly to differences in the covariates included in (3). 
+Regressions also can be used to calculate *conditional* averages. As we noted above, many factors impact rents. Including additional "covariates" in a regression helps us see how these additional variables may impact the relationship between annual rents and the variables we are interested in studying. In (3) below, we show average rents by building size *conditional* on the year the apartment was listed, bedroom and bathroom counts, the census tract that contains the building, and the building's age. Observe that the standard errors on the conditional averages are much larger than on the unconditional averages. They are no longer statistically different from each other. Additionally, the estimated coefficients are now negative. Negative coefficients in this case do not have a clear intuitive interpretation. Negative coefficients may arise from regressions with a large number of correlated predictors. Both the large confidence interval and the negative coefficients show us that the differences in average rents across building sizes are due mostly to differences in the covariates included in (3). 
 
-It is important to note that these regressions are not identifying a causal relationship. We simply show that building size is highly correlated with other variables that also strongly impact rent, making it very difficult to say why rents are different in buildings of different sizes. We omitted the regression statistics from the tables as irrelevant to the current analysis.
+It is important to note that these regressions are not identifying a causal relationship. We simply show that building size is highly correlated with other variables that also strongly impact rent, making it very difficult to say why rents are different in buildings of different sizes. We omitted the regression statistics from the tables as irrelevant to the current analysis. Readers should note that the estimated averages using IPUMS ACS data are lower than those estimated using TrueRoll rental data. This is partly because TrueRoll is observing apartment rental listings, while the ACS is capturing contract rent for current occupants. Also, TrueRoll's rental data may be biased upwards, as discussed.
 
 ``` {r regressions1, results = 'asis',  fig.align="center"}
 load('model5.RData'); load('model5.1.RData'); load('model5.2.RData')
@@ -207,7 +220,9 @@ load('model5.RData'); load('model5.1.RData'); load('model5.2.RData')
 stargazer(model5, model5.1, model5.2 
           , keep = 1:5
           , title="Rents and building size"
-          , column.labels = c("IPUMS","TR Rental Data", "TR Rental Data")
+          , column.labels = c("IPUMS ACS","TR Rental Data", "TR Rental Data")
+          , covariate.labels = c("Single-family", "2 - 4 units"
+                                 , " 5 - 19 units", "20 - 49 units", "50+ units")
           , add.lines=list(
             c('Year', 'No','No', 'Yes')
           , c('Bedrooms', 'No','No', 'Yes')
@@ -228,9 +243,9 @@ stargazer(model5, model5.1, model5.2
 
 ## Rents charged by 'mom-and-pop' landlords 
 
-The table below shows two regressions. Regression (1) shows unconditional average rents by owner type.  On average, unconditional average annual rents in buildings owned by a `Large property manager` are about \$3,000 more than those in buildings owned by a `Mom-and-pop` landlords. All unconditional averages are calculated with a very small margin of error. There is not a statistically significant difference between Mom-and-pop landlords and Small and Medium sized landlords.
+The table below shows two regressions. Regression (1) shows unconditional average rents by owner type.  On average, unconditional average annual rents in buildings owned by a 'Large property manager' are about \$3,000 more than those in buildings owned by a 'mom-and-pop' landlords. All unconditional averages are calculated with a very small margin of error. There is not a statistically significant difference between Mom-and-pop landlords and Small and Medium sized landlords.
 
-It may be the case that the apartments listed in buildings owned by different types of landlords are systematically different. For example, if Mom-and-pop landlords own structures that are relatively older, or located in less desirable areas, their rents might be lower  Regression (2) shows average annual rents *conditional* on the number of bedrooms and bathrooms, the census tract that contains the building, and the building's size and age. Whereas unconditional average annual rents (1) showed a statistically significant different across owner types, conditional average annual rents are not statistically different for any of the owner types as we have defined them. This indicates that the differences in list rents across ownership types are explained by differences in the attributes of the units, buildings, and their locations. 
+It may be the case that the apartments listed in buildings owned by different types of landlords are systematically different. For example, if Mom-and-pop landlords own structures that are relatively older, or located in less desirable areas, their rents might be lower. Regression (2) shows average annual rents *conditional* on the number of bedrooms and bathrooms, the census tract that contains the building, and the building's size and age. Whereas unconditional average annual rents (1) showed a statistically significant difference across owner types, conditional average annual rents are not statistically different for any of the owner types as we have defined them. This indicates that the differences in list rents across ownership types are explained by differences in the attributes of the units, buildings, and their locations. 
 
 ``` {r regressions2, results = 'asis'}
 load('model1.RData');load('model1.1.RData')
@@ -245,6 +260,8 @@ stargazer(model1,model1.1
           , c('Building size', 'No', 'Yes')
           , c('Building age', 'No', 'Yes')
            )
+          , covariate.labels = c("Large property manager", "Midsized property manager"
+                                 , "Small property manager", "Mom-and-pop")
           , title="Rents and owner type"
           , align=F, type = 'html'
           , omit.table.layout = "n"
@@ -257,9 +274,15 @@ stargazer(model1,model1.1
 
 ```
 
+The graph below shows the same data plotted as a bar chart without covariates. 
+
+```{r fig9}
+load('G9.gph'); G9
+```
+
 ## Rents and owner location
 
-As noted above, TrueRoll imputed owners' locations based on the mailing addresses for each property's tax bill. On average, Seattle property owners that live in Washington state charge slightly lower rents than owners in the Seattle metropolitan area. Unconditionally, owners that live outside Washington state charge \$7,700 per year more than owners that live in Washington, but outside of the Seattle metropolitan area. As with the owner types analysis above, differences across owner locations become insignificant once you account for unit and building attributes, and census block.
+As noted above, TrueRoll imputed owners' locations based on the mailing addresses for each property's tax bill. On average, Seattle property owners who live anywhere in Washington state charge slightly lower rents than owners who live in the Seattle metropolitan area. Unconditionally, owners who live outside Washington state charge \$7,700 per year more than owners that live in Washington outside the Seattle metropolitan area. As with the owner types analysis above, differences across owner locations become insignificant after accounting for unit and building attributes and census block.
 
 ``` {r regressions3, results = 'asis',  out.width = '100%'}
 load('model2.RData'); load('model2.1.RData')
@@ -274,6 +297,8 @@ stargazer(model2, model2.1
           , c('Building size', 'No', 'Yes')
           , c('Building age', 'No', 'Yes')
            )
+          , covariate.labels = c("Lives outside WA", "Lives in Seattle"
+                                 , "Lives Seattle suburbs", "Lives in WA outside Seattle & suburbs")
           , title="Rents and owner location"
           , align=F, type = 'html'
           , omit.table.layout = "n"
@@ -304,6 +329,7 @@ stargazer(model3, model3.1
           , c('Building size', 'No', 'Yes')
           , c('Building age', 'No', 'Yes')
            )
+          , covariate.labels = c("Owner occupied", "Not owner occupied")
           , title="Rents and owner occupancy"
           , align=F, type = 'html'
           , omit.table.layout = "n"
@@ -334,31 +360,36 @@ It is common for multiple agencies to each hold a part of the puzzle regarding r
 
 #### Establish a Chief Data Officer role
 
-Data is a public asset, and there should be a chief executive mandated with the development of these assets for the City of Seattle. A well-supported Chief Data Officer can work across agency silos to develop a comprehensive data governance strategy that serves all agencies in a comprehensive manner. Without such a role, it will be very difficult for the City of Seattle and King County to coordinate effectively to collect and manage detailed real estate data. 
+Data is a public asset, and there should be a chief executive mandated with the development of these assets for the City of Seattle. A well-supported Chief Data Officer can work across agency silos to develop a comprehensive data governance strategy that serves all agencies in a comprehensive manner. Without such a role, it will be difficult for the City of Seattle and King County to coordinate effectively to collect and manage detailed real estate data. 
 
 ### Transparency makes government more efficient and effective
 
-Agencies that collect and store real property data should make that data available to the public, and therefore each other, at the most granular level. Transparency improves the effectiveness of every agency that uses real property data. Currently, different agencies engage in redundant retrieval and storage of each others' data. This creates wasteful duplication, and makes it very difficult to maintain data integrity across disparate agencies. By establishing a transparent, accessible, comprehensive database, the City of Seattle and King County can eliminate redundancy and enable agencies to do their work better and faster. For example, the Cook County Assessor's Office has released [the entire parcel record from 1999 to present](https://datacatalog.cookcountyil.gov/Property-Taxation/Assessor-Parcel-Universe/tx2p-k2g9), and their [data release notes](https://datacatalog.cookcountyil.gov/stories/s/p2kt-hk36) have been [viewed more than 40,000](https://datacatalog.cookcountyil.gov/browse?q=Assessor&sortBy=relevance) times since it was released two years ago.
+Agencies that collect and store real property data should make that data available to the public, and therefore each other, at the most granular level. Transparency improves the effectiveness of every agency that uses real property data. Currently, different agencies engage in redundant retrieval and storage of each others' data. This creates wasteful duplication and makes it very difficult to maintain data integrity across disparate agencies. By establishing a transparent, accessible, comprehensive database, the City of Seattle and King County can eliminate redundancy and enable agencies to do their work better and faster. For example, the Cook County Assessor's Office has released [the entire parcel record from 1999 to present](https://datacatalog.cookcountyil.gov/Property-Taxation/Assessor-Parcel-Universe/tx2p-k2g9), and their [data release notes](https://datacatalog.cookcountyil.gov/stories/s/p2kt-hk36) have been [viewed more than 40,000](https://datacatalog.cookcountyil.gov/browse?q=Assessor&sortBy=relevance) times since it was released two years ago.
 
 ### Sample a subset of market data and model rents
 
-The rental market is fairly efficient. As a result, there is much less heterogeneity across rental units than there is across single-family homes. Most of the variation in rental prices can be attributed to a very limited set of explanatory variables: location, bedroom and bathroom count, and building amenities, which are usually highly correlated with the building's effective age. A random sample of 10% of rental units in Seattle, stratified by geography and building class, will likely be sufficient to develop a highly accurate understanding of rental trends in the city. 
+The rental market is fairly efficient. As a result, there is much less heterogeneity across rental units than across single-family homes. Most variation in rental prices is due to a very limited set of explanatory variables: location, bedroom and bathroom count, and building amenities, which usually correlate highly with the building's effective age. A random sample of 10% of rental units in Seattle, stratified by geography and building class, will likely be sufficient to develop a highly accurate understanding of rental trends in the city. 
 
-The manner in which this data is collected will be extremely consequential to its usefulness. Skeuomorphic web forms should be avoided. Instead, a step-by-step interactive web application should be  used to guide users through a submission process that populates a well-defined data model. The Cook County Assessor's Office recently launched such a platform called the Real Property Income and Expense Online Form. A detailed description of that platform's design [can be found online](https://gitlab.com/ccao-data-science---modeling/documentation/wiki_content/-/blob/master/RPIE/RPIE%20Overview.md).
+The data collected by a random survey of existing tenants and landlords will produce more accurate data than can currently be purchased by vendors. First, data vendors have a similar smapling problem to TrueRoll's rental data, namely, that small properties are underrepresented in their sample. This is so because large vendors cater to property brokers and investors, who are typically uninterested in properties that yield lower rents, or have higher maintenance costs. A well-designed sample could complement the limited data the City has available for smaller rental properties. This could include special sampling protocols designed to collect representative data for properties owned by mom-and-pop and other small landlords who are generally less likely to be captured by large data vendors. 
 
-Randomly sampled rental data, combined with a well-conceived real property database, can be used to predict rents across the City with a high degree of accuracy. Automated valuation models are commonly used in the property tax assessment industry to predict the value of non-rental residential property in a jurisdiction. The exact same approach may be used to model apartment rents. This reduces the amount of rental data that must be collected by a large margin while still allowing a clear picture of rental rates in the City of Seattle. 
+The way this data is collected will be extremely consequential to its usefulness. [Skeuomorphic](https://en.wikipedia.org/wiki/Skeuomorph) web forms should be avoided. Instead, a step-by-step interactive web application should be  used to guide users through a submission process that populates a well-defined data model. The Cook County Assessor's Office recently launched such a platform called the Real Property Income and Expense Online Form. A detailed description of that platform's design [can be found online](https://gitlab.com/ccao-data-science---modeling/documentation/wiki_content/-/blob/master/RPIE/RPIE%20Overview.md).
+
+Additionally, data collection should not proceed before a thorough design period that involves multiple parties of various disciplines. Survey statisticians and data scientists should be consulted to determine which sample strata need to be targeted, and to build the models that will leverage the collected data. Public administration specialists should help craft the survey design and communications strategy. Project administrators should ensure organisation in the execution of the survey. Technologists should be consulted to build the right tools to collect and store the data. Collecting data of this type and magnitude requires significant coordination, which is why we recommend the formation of a consortium below.
+
+Combined with a well-conceived real property database, randomly sampled rental data can be used to estimate rents across the city with a high degree of accuracy. Automated valuation models are commonly used in the property tax assessment industry to predict the value of non-rental residential property in a jurisdiction. The same approach may be used to model apartment rents. This reduces the amount of rental data that must be collected by a large margin while still allowing a clear picture of rental rates in the city of Seattle. 
 
 #### Compensate landlords for their data
 
-Data is valuable. Laws that compel people to submit data often result in low compliance rates and poor quality data. We suggest that the City of Seattle pay landowners to submit their data. Compensation can be based on our prior knowledge of landlord's portfolio sizes. Coupled with our recommendation above to sample only a fraction of the total rental units, this recommneded payment would result in a modest annual outlay of funds. 
+Data is valuable. Laws that compel people to submit data often result in low compliance rates and low quality data. We suggest that the city of Seattle pay landowners to submit their data. Compensation can be based on our prior knowledge of landlord's portfolio sizes. Coupled with our recommendation above to sample only a fraction of the total rental units, this recommended payment would result in a modest annual outlay of funds. 
 
 ## Continuous investment in capacity
 
-This study is the third of such kind since 2016. In [their 2018 study](https://www.seattle.gov/Documents/Departments/CityAuditor/auditreports/UWSRHSFINAL.pdf), Professor Crowder suggests building a research consortium. We reiterate that recommendation. The current approach of sporadically commissioning studies that rely on bespoke and privileged data sources will produce inconsistent results. If policymakers want to craft well-conceived polices to improve Seattle's housing market, they need to invest in a long-term housing monitoring project. A consortium of researchers from both academic, as well as the private and public sectors, will ensure that policymakers have reliable information upon which to base legislation. Such a consortium could not only assemble and curate common data sets, but they could also build technological tools to collect novel data.
+This study is the second of such kind since 2016. In [their 2018 study](https://www.seattle.gov/Documents/Departments/CityAuditor/auditreports/UWSRHSFINAL.pdf), Professor Crowder describes formation of a University of Washington (UW) research consortium including Center for Studies in Demography and Ecology (CSDE), and Runstad Department of Real Estate. In a May 5, 2022, letter to the Council’s Finance and Housing Committee, Dr. Young of the Center for Real Estate Research at the Runstad Department of Real Estate suggested that the Center could form a working group involving private sector organizations, community leaders and City departments to identify strategies for filling rental housing market data gaps. (See [attachment to Mayor’s letter](http://seattle.legistar.com/View.ashx?M=F&ID=11027351&GUID=646B0932-5E1D-4859-8271-5DC45EF60CF1) on Council Bill 120325.) We reiterate this recommendation.
 
 ## Modify rental registry data model and collection method    
 
 The City of Seattle's Department of Constructions and Inspections maintains a registry of rental properties. We did not, however, find Seattle's rental registry data useful for this analysis. This was so for a few reasons. First, it was not possible to identify when registered units entered and exited the registry using the data. Second, only one parcel number is attached to each registry. Multi-family buildings often occupy more than one parcel, making it more difficult to identify which parcels had not been registered. Finally, the registry does not record any attributes about the units registered. Together, these facts made it impossible to use the data for time trend analysis. We recommend retooling the rental registry data storage and collection model to make the data more usable for various analyses. 
+Though it was outside the scope of this project, TrueRoll compared the list of active registered rental properties on Seattle's rental registry to rental listings observed in 2021 and Q1 2022. We found 3,964 parcels that were associated with a rental listing in TrueRoll's rental data, but were not listed as active on Seattle's rental registry. Seattle's rental registry only connects one address with one parcel number. It is very common for one building to have multiple addresses and parcels, so our count of unregistered parcels is likely higher than the actual figure. Creating a unified real property data model across the various agencies as mentioned above will help enhance the registry's value to Seattle. 
 
 # Additional resources
 
