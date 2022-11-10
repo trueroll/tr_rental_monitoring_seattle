@@ -3031,13 +3031,13 @@ covariates.</p>
 <h2>Rents and owner location</h2>
 <p>As noted above, TrueRoll imputed owners’ locations based on the
 mailing addresses for each property’s tax bill. On average, Seattle
-property owners that live in Washington state charge slightly lower
-rents than owners in the Seattle metropolitan area. Unconditionally,
-owners that live outside Washington state charge $7,700 per year more
-than owners that live in Washington, but outside of the Seattle
+property owners who live anywhere in Washington state charge slightly
+lower rents than owners who live in the Seattle metropolitan area.
+Unconditionally, owners who live outside Washington state charge $7,700
+per year more than owners that live in Washington outside the Seattle
 metropolitan area. As with the owner types analysis above, differences
-across owner locations become insignificant once you account for unit
-and building attributes, and census block.</p>
+across owner locations become insignificant after accounting for unit
+and building attributes and census block.</p>
 <table style="text-align:center">
 <caption>
 <strong>Rents and owner location</strong>
@@ -3509,7 +3509,7 @@ a complete picture of the real property in an area.</p>
 mandated with the development of these assets for the City of Seattle. A
 well-supported Chief Data Officer can work across agency silos to
 develop a comprehensive data governance strategy that serves all
-agencies in a comprehensive manner. Without such a role, it will be very
+agencies in a comprehensive manner. Without such a role, it will be
 difficult for the City of Seattle and King County to coordinate
 effectively to collect and manage detailed real estate data.</p>
 </div>
@@ -3521,7 +3521,7 @@ data available to the public, and therefore each other, at the most
 granular level. Transparency improves the effectiveness of every agency
 that uses real property data. Currently, different agencies engage in
 redundant retrieval and storage of each others’ data. This creates
-wasteful duplication, and makes it very difficult to maintain data
+wasteful duplication and makes it very difficult to maintain data
 integrity across disparate agencies. By establishing a transparent,
 accessible, comprehensive database, the City of Seattle and King County
 can eliminate redundancy and enable agencies to do their work better and
@@ -3533,56 +3533,80 @@ more than 40,000</a> times since it was released two years ago.</p>
 <div id="sample-a-subset-of-market-data-and-model-rents" class="section level3">
 <h3>Sample a subset of market data and model rents</h3>
 <p>The rental market is fairly efficient. As a result, there is much
-less heterogeneity across rental units than there is across
-single-family homes. Most of the variation in rental prices can be
-attributed to a very limited set of explanatory variables: location,
-bedroom and bathroom count, and building amenities, which are usually
-highly correlated with the building’s effective age. A random sample of
-10% of rental units in Seattle, stratified by geography and building
-class, will likely be sufficient to develop a highly accurate
-understanding of rental trends in the city.</p>
-<p>The manner in which this data is collected will be extremely
-consequential to its usefulness. Skeuomorphic web forms should be
-avoided. Instead, a step-by-step interactive web application should be
-used to guide users through a submission process that populates a
-well-defined data model. The Cook County Assessor’s Office recently
-launched such a platform called the Real Property Income and Expense
-Online Form. A detailed description of that platform’s design <a href="https://gitlab.com/ccao-data-science---modeling/documentation/wiki_content/-/blob/master/RPIE/RPIE%20Overview.md">can
+less heterogeneity across rental units than across single-family homes.
+Most variation in rental prices is due to a very limited set of
+explanatory variables: location, bedroom and bathroom count, and
+building amenities, which usually correlate highly with the building’s
+effective age. A random sample of 10% of rental units in Seattle,
+stratified by geography and building class, will likely be sufficient to
+develop a highly accurate understanding of rental trends in the
+city.</p>
+<p>The data collected by a random survey of existing tenants and
+landlords will produce more accurate data than can currently be
+purchased by vendors. First, data vendors have a similar smapling
+problem to TrueRoll’s rental data, namely, that small properties are
+underrepresented in their sample. This is so because large vendors cater
+to property brokers and investors, who are typically uninterested in
+properties that yield lower rents, or have higher maintenance costs. A
+well-designed sample could complement the limited data the City has
+available for smaller rental properties. This could include special
+sampling protocols designed to collect representative data for
+properties owned by mom-and-pop and other small landlords who are
+generally less likely to be captured by large data vendors.</p>
+<p>The way this data is collected will be extremely consequential to its
+usefulness. <a href="https://en.wikipedia.org/wiki/Skeuomorph">Skeuomorphic</a> web
+forms should be avoided. Instead, a step-by-step interactive web
+application should be used to guide users through a submission process
+that populates a well-defined data model. The Cook County Assessor’s
+Office recently launched such a platform called the Real Property Income
+and Expense Online Form. A detailed description of that platform’s
+design <a href="https://gitlab.com/ccao-data-science---modeling/documentation/wiki_content/-/blob/master/RPIE/RPIE%20Overview.md">can
 be found online</a>.</p>
-<p>Randomly sampled rental data, combined with a well-conceived real
-property database, can be used to predict rents across the City with a
+<p>Additionally, data collection should not proceed before a thorough
+design period that involves multiple parties of various disciplines.
+Survey statisticians and data scientists should be consulted to
+determine which sample strata need to be targeted, and to build the
+models that will leverage the collected data. Public administration
+specialists should help craft the survey design and communications
+strategy. Project administrators should ensure organisation in the
+execution of the survey. Technologists should be consulted to build the
+right tools to collect and store the data. Collecting data of this type
+and magnitude requires significant coordination, which is why we
+recommend the formation of a consortium below.</p>
+<p>Combined with a well-conceived real property database, randomly
+sampled rental data can be used to estimate rents across the city with a
 high degree of accuracy. Automated valuation models are commonly used in
 the property tax assessment industry to predict the value of non-rental
-residential property in a jurisdiction. The exact same approach may be
-used to model apartment rents. This reduces the amount of rental data
-that must be collected by a large margin while still allowing a clear
-picture of rental rates in the City of Seattle.</p>
+residential property in a jurisdiction. The same approach may be used to
+model apartment rents. This reduces the amount of rental data that must
+be collected by a large margin while still allowing a clear picture of
+rental rates in the city of Seattle.</p>
 <div id="compensate-landlords-for-their-data" class="section level4">
 <h4>Compensate landlords for their data</h4>
 <p>Data is valuable. Laws that compel people to submit data often result
-in low compliance rates and poor quality data. We suggest that the City
+in low compliance rates and low quality data. We suggest that the city
 of Seattle pay landowners to submit their data. Compensation can be
 based on our prior knowledge of landlord’s portfolio sizes. Coupled with
 our recommendation above to sample only a fraction of the total rental
-units, this recommneded payment would result in a modest annual outlay
+units, this recommended payment would result in a modest annual outlay
 of funds.</p>
 </div>
 </div>
 </div>
 <div id="continuous-investment-in-capacity" class="section level2">
 <h2>Continuous investment in capacity</h2>
-<p>This study is the third of such kind since 2016. In <a href="https://www.seattle.gov/Documents/Departments/CityAuditor/auditreports/UWSRHSFINAL.pdf">their
-2018 study</a>, Professor Crowder suggests building a research
-consortium. We reiterate that recommendation. The current approach of
-sporadically commissioning studies that rely on bespoke and privileged
-data sources will produce inconsistent results. If policymakers want to
-craft well-conceived polices to improve Seattle’s housing market, they
-need to invest in a long-term housing monitoring project. A consortium
-of researchers from both academic, as well as the private and public
-sectors, will ensure that policymakers have reliable information upon
-which to base legislation. Such a consortium could not only assemble and
-curate common data sets, but they could also build technological tools
-to collect novel data.</p>
+<p>This study is the second of such kind since 2016. In <a href="https://www.seattle.gov/Documents/Departments/CityAuditor/auditreports/UWSRHSFINAL.pdf">their
+2018 study</a>, Professor Crowder describes formation of a University of
+Washington (UW) research consortium including Center for Studies in
+Demography and Ecology (CSDE), and Runstad Department of Real Estate. In
+a May 5, 2022, letter to the Council’s Finance and Housing Committee,
+Dr. Young of the Center for Real Estate Research at the Runstad
+Department of Real Estate suggested that the Center could form a working
+group involving private sector organizations, community leaders and City
+departments to identify strategies for filling rental housing market
+data gaps. (See <a href="http://seattle.legistar.com/View.ashx?M=F&amp;ID=11027351&amp;GUID=646B0932-5E1D-4859-8271-5DC45EF60CF1">attachment
+to Mayor’s letter</a> on Council Bill 120325.) We reiterate this
+recommendation.</p>
 </div>
 <div id="modify-rental-registry-data-model-and-collection-method" class="section level2">
 <h2>Modify rental registry data model and collection method</h2>
@@ -3598,6 +3622,17 @@ any attributes about the units registered. Together, these facts made it
 impossible to use the data for time trend analysis. We recommend
 retooling the rental registry data storage and collection model to make
 the data more usable for various analyses.</p>
+<p>Though it was outside the scope of this project, TrueRoll compared
+the list of active registered rental properties on Seattle’s rental
+registry to rental listings observed in 2021 and Q1 2022. We found 3,964
+parcels that were associated with a rental listing in TrueRoll’s rental
+data, but were not listed as active on Seattle’s rental registry.
+Seattle’s rental registry only connects one address with one parcel
+number. It is very common for one building to have multiple addresses
+and parcels, so our count of unregistered parcels is likely higher than
+the actual figure. Creating a unified real property data model across
+the various agencies as mentioned above will help enhance the registry’s
+value to Seattle.</p>
 </div>
 </div>
 <div id="additional-resources" class="section level1">
