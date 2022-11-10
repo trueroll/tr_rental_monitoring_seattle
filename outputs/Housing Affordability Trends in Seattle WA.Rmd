@@ -38,7 +38,7 @@ We provide recommendations regarding the future collection and maintenance of re
 
 ### Reproduction
 
-Reproduction code and data for this project can be found on [GitHub.](https://github.com/trueroll/seattle_rental_study) Some elements of this project contain intellectual property and sensitive business information, and have been masked. Each graph has a graph number noted in its caption. These correspond to tabular data stored in the repository.
+Reproduction code and data for this project can be found on [GitHub.](https://github.com/trueroll/tr_rental_monitoring_seattle) Some elements of this project contain intellectual property and sensitive business information, and have been masked. Each graph has a graph number noted in its caption. These correspond to tabular data stored in the repository.
 
 # Broad trends in Seattle housing costs
 
