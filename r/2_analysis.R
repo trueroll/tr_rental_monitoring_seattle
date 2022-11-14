@@ -344,7 +344,7 @@ G9 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_da
   scale_y_continuous(labels = scales::dollar_format()) +
   scale_fill_manual(values= c(tr_colors)) +
   labs(title = "Annual rental costs by bedroom and owner type"
-       , caption = "G9. Data from TruRoll.")
+       , caption = "G9. Data from TrueRoll.")
 
 save(G9, file = here::here("tr_rental_monitoring_seattle", "outputs", 'G9.gph'))
 rm(G9)
