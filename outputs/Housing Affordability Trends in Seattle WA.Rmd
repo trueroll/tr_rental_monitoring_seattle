@@ -31,7 +31,7 @@ This report was prepared by [TrueRoll](https://www.trueroll.io/), a technology c
 
 - Since 2010, the number of housing units in Seattle has increased dramatically in response to increasing demand from a growing population. Most new units are created in large buildings with 50 or more units. There has been a small net increase in units in all building sizes.
 - The number of housing units owned by mom-and-pop landlords decreased slightly (3.5%) from 2015 to 2021. Units owned by small property managers account for the largest portion of growth in total housing units. 
-- Rental listing data does not provide strong evidence that 'mom-and-pop' landlords charge lower rents on average. Nor does it provide strong evidence that rents differ significantly by building size, except insomuch as buildings of different sizes are located in different parts of Seattle, or differ in terms of age or unit sizes. No does it provide strong evidence that property owners that live outside of the state of Washington charge higher rents than property owners located nearer to Seattle.
+- Rental listing data does not provide strong evidence that 'mom-and-pop' landlords charge lower rents on average. Nor does it provide strong evidence that rents differ significantly by building size, except insomuch as buildings of different sizes are located in different parts of Seattle, or differ in terms of age or unit sizes. Nor does it provide strong evidence that property owners that live outside of the state of Washington charge higher rents than property owners located nearer to Seattle.
 - Rental listing data likely suffers from a number of flaws that may mask small patterns in the market. For example, we observed far fewer online rental listings associated with small, multi-family properties than with large multi-family properties. This can introduce selection bias into the rental sample, which may make smaller properties appear more similar to larger ones in terms of pricing. 
 
 We provide recommendations regarding the future collection and maintenance of real property data.
@@ -46,9 +46,9 @@ The sections below outlines broad trends in Seattle population and housing. For 
 
 ## Rents are increasing with increased population pressure and rising incomes
 
-The population of Seattle, WA has grown rapidly over the past decade, from 664,000 in 2010 to 743,000 in 2020. Rents have followed, with median [contract rent](https://usa.ipums.org/usa-action/variables/RENT#description_section) rent 25% higher in 2020 than in 2010. 
+The population of Seattle, WA has grown rapidly over the past decade, from 664,000 in 2010 to 743,000 in 2020. Rents have followed, with median [contract rent](https://usa.ipums.org/usa-action/variables/RENT#description_section) 25% higher in 2020 than in 2010. 
 
-Households incomes have also increased - median income rose from \$64,000 to \$90,000 over the decade. Increases in population and rents raise legitimate concern over housing affordability in Seattle. The graph below shows these changes in Seattle. Values are indexed to show the relationship in trends rather than levels. 
+Household incomes have also increased - median income rose from \$64,000 to \$90,000 over the decade. Increases in population and rents raise legitimate concern over housing affordability in Seattle. The graph below shows these changes in Seattle. Values are indexed to show the relationship in trends rather than levels. 
 
 ```{r fig1, out.width = '100%'}
 load('G1.gph'); G1
@@ -68,7 +68,7 @@ load('G2.gph'); G2
 
 This section describes the current state of and changes over time in the composition of the rental housing stock in Seattle. Following the categorization schema used by the US Census Bureau, we focus on the number of units in five different building size classes, from single-family to large buildings with more than 50 units. For this analysis, we rely on several data sets. Each sub-section highlights results from a specific data set. Overall, we see little evidence that Seattle is losing units within any category of building size. Most new units are being built in large buildings. The share of housing units in smaller buildings declined over time, since the number of units in smaller buildings remained constant as the total number of units increased.
 
-## American Community Sruvey data
+## American Community Survey data
 
 IPUMS ACS data captures [the number of units in respondents' structure](https://usa.ipums.org/usa-action/variables/UNITSSTR#description_section). Note that this field captures occupied and vacant units, and attached 1-unit structures like town homes are counted as 1-unit structures. Using this field, we can count the number of households over time by building size. The graph below shows that nearly all of the net the increases in housing in Seattle is occurring in large buildings with 50 or more units. Mathematically, this will result in a smaller share of units in smaller buildings overall. The number of households living in smaller apartment buildings and single-family homes has stayed relatively stable since 2005.   
 
@@ -114,7 +114,7 @@ This section describes the current state and changes over time in the ownership 
 
 As mentioned above, OPCD shared historical parcel data with TrueRoll for this study. We joined TrueRoll ownership records to the tax roll for each year. This allowed us to track owners and their portfolios over time. It also allowed us to characterize owners based on the number of parcels, buildings, and units they own. 
 
-Part of the scope of this study involved defining "small landlord". The table below shows the categorization schema we used to define different types of property owners. This categorization schema is informed by the Urban Institute's work over the past few years on "mom-and-pop" landlords in Minneapolis, MN, and other cities. See the links at the end of this document for references. While we cannot follow their definition exactly due to differences in the data that is available to us, we can follow it in general. 
+Part of the scope of this study involved defining "small landlord". The table below shows the categorization schema we used to define different types of property owners. This categorization schema is informed by the Urban Institute's work over the past few years on "Mom-and-pop" landlords in Minneapolis, MN, and other cities. See the links at the end of this document for references. While we cannot follow their definition exactly due to differences in the data that is available to us, we can follow it in general. 
 
 In the table below, owners must meet all of the criteria in the first two categories to be categorized as either a "Mom-and-pop" or "Small property manager" owner. The buildings field was not always populated because of the way the King County Assessor tracks buildings data. Owners with null building counts that met the other criteria for "Mom-and-pop" and "Small" landlords were included in those categories. Owners meeting any of the criteria in the next two rows are categorized as one of "Midsized" or "Large" property manager categories. Owners that meet criteria in both the "Midsized" and "Large" property manager categories are categorized as "Large property managers." For example, properties owners with 20 parcels and 51 units, and 22 parcels and 49 units are both classified as large property managers. 
 
