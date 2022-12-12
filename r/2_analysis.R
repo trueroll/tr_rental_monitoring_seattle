@@ -239,7 +239,7 @@ rm(T5, G5.1, G5.2)
 
 
 #---- G7 Cost by bldg size ----
-T6 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "PUMS.parquet")) %>%
+T7 <- read_parquet(here::here("data", "PUMS.parquet")) %>%
   dplyr::filter(
     Ownership == "Rent" 
     & `Housing share of HH income` < .8) %>%
@@ -249,7 +249,7 @@ T6 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "PUMS.parq
   dplyr::mutate(`Data source` = 'US Census IPUMS') %>%
   dplyr::ungroup()
 
-T6 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_data.parquet"))  %>%
+T7 <- read_parquet(here::here( "data", "rental_data.parquet"))  %>%
   dplyr::filter(Year >= 2021 & !(is.na(`Building size`))) %>%
   dplyr::group_by(`Building size`, Year) %>%
   dplyr::summarise(
@@ -257,12 +257,13 @@ T6 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_da
   )  %>%
   dplyr::mutate(`Data source` = 'TrueRoll rental data') %>%
   dplyr::ungroup() %>%
-  plyr::rbind.fill(T6)
+  plyr::rbind.fill(T7)
 
-G6 <- T6 %>%
+G7 <- T7 %>%
   ggplot(aes( x = Year, y = `Housing cost`, color = `Building size`)) +
   geom_line() + geom_point() + 
-  geom_vline(xintercept = 2020.5) +
+  geom_vline(xintercept = 2020.5, size = 1, linetype = "dotdash") +
+  annotate(geom="text", x=2017, y=40000, label="Different data source after 2020") +
   theme_minimal() +
   theme(legend.position = 'bottom', legend.title = element_blank()) +
   scale_y_continuous(labels = scales::dollar_format()) +
@@ -272,9 +273,9 @@ G6 <- T6 %>%
        , caption = "G6. '05 to '20 data from US Census IPUMS. '21 to '22 data from TrueRoll.")
 
 
-save(G6, file = here::here("tr_rental_monitoring_seattle", "outputs", 'G6.gph'))
-write_csv(T6, here::here("tr_rental_monitoring_seattle", "outputs", "T6.csv") )
-rm(T6, G6)
+save(G7, file = here::here("outputs", 'G7.gph'))
+write_csv(T7, here::here( "outputs", "T7.csv") )
+rm(T7, G7)
 
 
 #---- Rental registry ----
@@ -330,7 +331,7 @@ save(model1.1, file = here::here("tr_rental_monitoring_seattle", "outputs", 'mod
 rm(model1,model1.1, rental_data)
 
 #---- G9 Cost by owner and bedrooms ----
-G9 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_data.parquet")) %>%
+G9 <- read_parquet(here::here("data", "rental_data.parquet")) %>%
   group_by(`Owner type`, Bedrooms) %>%
   dplyr::summarise(
     `Median annual rental costs` = median(`Annual rental costs`)
@@ -344,9 +345,10 @@ G9 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_da
   scale_y_continuous(labels = scales::dollar_format()) +
   scale_fill_manual(values= c(tr_colors)) +
   labs(title = "Annual rental costs by bedroom and owner type"
+       , subtitle = "2019 - Q12022 TrueRoll Data"
        , caption = "G9. Data from TrueRoll.")
 
-save(G9, file = here::here("tr_rental_monitoring_seattle", "outputs", 'G9.gph'))
+save(G9, file = here::here( "outputs", 'G9.gph'))
 rm(G9)
 
 #---- Regression 2: Owner home location----
@@ -421,7 +423,7 @@ save(model5.2, file = here::here("tr_rental_monitoring_seattle", "outputs", 'mod
 rm(model5, model5.1,model5.2, rental_data, ipums)
 
 #---- G8 Cost by size and bedrooms ----
-G8 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_data.parquet")) %>%
+G8 <- read_parquet(here::here("data", "rental_data.parquet")) %>%
   group_by(`Building size`, Bedrooms) %>%
   dplyr::summarise(
     `Median annual rental costs` = median(`Annual rental costs`)
@@ -435,9 +437,10 @@ G8 <- read_parquet(here::here("tr_rental_monitoring_seattle", "data", "rental_da
   scale_y_continuous(labels = scales::dollar_format()) +
   scale_fill_manual(values= c(tr_colors)) +
   labs(title = "Annual rental costs by bedroom and building size"
+       , subtitle = "2019 - Q12022 TrueRoll Data"
        , caption = "G8. Data from TruRoll.")
 
-save(G8, file = here::here("tr_rental_monitoring_seattle", "outputs", 'G8.gph'))
+save(G8, file = here::here("outputs", 'G8.gph'))
 rm(G8)
 
 #----Frequency table----
